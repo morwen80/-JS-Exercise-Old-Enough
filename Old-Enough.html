@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Are You Old Enough?</title>
+  </head>
+  <script>
+  function whatsyourage(age){
+  let eta = document.getElementById('oldness').value;
+
+ if (eta >= 100 || eta <= 120 || eta <= 12) {
+    document.getElementById("entry").innerHTML = "You Are Definitely in the Wrong Place!"
+  }
+ else if (eta <=17) {
+     document.getElementById("entry").innerHTML = "You Shall Not Pass!"
+    }
+else if (eta >= 18 && eta <= 100) {
+  document.getElementById("entry").innerHTML = "You May Enter";
+}
+    else {
+      document.getElementById("entry").innerHTML = "Please Enter Your Age!"
+    }
+}
+
+  </script>
+  <body>
+    <div id="container">
+<div class = "enter">How old are you?</div>
+<form>
+  <div class="form-group">
+    <input
+       id="oldness"
+       type="number"
+       class="form-control form-control-lg"
+       placeholder="Enter Your Age">
+   </div>
+</form>
+
+<input type="button" value="Click me" onclick="whatsyourage()"></input>
+
+<p>The entry will be granted only to those who are older than 18</p>
+
+<p id="entry"></p>
+</div><!--container-->
+  </body>
+</html>
