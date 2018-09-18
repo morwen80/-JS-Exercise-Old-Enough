@@ -1,9 +1,11 @@
+
 #container {
   margin: 0 auto;
   display: block;
   border: 3px solid grey;
   width: 80%;
   display: flex;
+  flex-wrap: wrap;
 }
 
 #left {
@@ -27,6 +29,12 @@ button {
   font-size: 1rem;
   background-color: red;
   color: white;
+}
+
+#right {
+
+  border: 1px solid grey;
+
 }
 
 #state {
