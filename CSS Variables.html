@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>JS Exercises || CSS Variables</title>
+  </head>
+  <body>
+<script>
+  const inputs = document.querySelectorAll('.controls input');
+  function handleUpdate() {
+    const suffix = this.dataset.sizing || '';
+    document.documentElement.style.setProperty(`--${this.name}`, this.value + suffix)
+  }
+inputs.forEach(input => input.addEventListener('change', handleUpdate));
+inputs.forEach(input => input.addEventListener('mousemove', handleUpdate));
+</script>
+
+<style>
+@import url('https://fonts.googleapis.com/css?family=League+Script|Ubuntu');
+
+body {
+  background-color: #F2FBE0;
+  font-family: 'Ubuntu', sans-serif;
+}
+#container {
+  padding: 1rem 0 2rem 0;
+}
+#container label {
+  padding: 1rem;
+}
+.controls {
+  display:block;
+  margin: 0 auto;
+  width: 65%;
+}
+#title {
+  text-align: center;
+  font-size: 3rem;
+  padding-bottom: 2rem;
+  color: 605B56;
+  font-family: 'Ubuntu', sans-serif;
+}
+:root {
+  --base: #ACC18A;
+  --radius: 1px;
+  --blur: 10px;
+  --size: 300px;
+  --border: 1px;
+}
+#kittyBox {
+  padding-top: 2.5rem;
+}
+#kitty1 {
+  display: block;
+  margin: 0 auto;
+  border: solid var(--base) var(--border);
+  border-radius: var(--radius);
+  filter: blur(var(--blur));
+  width: var(--size);
+}
+</style>
+
+<div id="container">
+  <div id="title">CSS Variables and JS</div>
+    <div class="controls">
+      <label for="blur">Blur:</label>
+    <input type="range" name="blur" min="0" max="25" value="0" data-sizing="px">
+
+    <label for="radius">Border Radius:</label>
+    <input type="range" name="radius" min="0" max="100" value="0" data-sizing="%">
+
+      <label for="border">Border Width:</label>
+    <input type="range" name="border" min="0" max="50" value="5" data-sizing="px">
+
+      <label for="size">Size:</label>
+    <input type="range" name="size" min="300" max="1200" value="800" data-sizing="px">
+
+
+    <label for="base">Background Color:</label>
+    <input type="color" name="base" value="#ACC18A">
+
+    </div>
+
+    <div id="kittyBox">
+      <img id="kitty1" src="http://www.pethealthnetwork.com/sites/default/files/content/images/prev_kitten-care162282356.png">
+    </div>
+</div>
+</body>
+</html>
