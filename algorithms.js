@@ -9,3 +9,6 @@ function unique(str) {
      }
     }
 }
+
+
+#Given a string, find the length of the longest word in the string
