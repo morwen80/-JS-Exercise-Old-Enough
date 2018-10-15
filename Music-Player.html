@@ -1,15 +1,156 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-
-<head>
-  <meta charset="utf-8"></meta>
-  
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+    <title>Music Player</title>
   </head>
   
+  <style>
+    body {
+  background: radial-gradient(#9696e4, #4545ee);
+  font-size: 1.2em;
+  width: 50%;
+  margin: 20px auto;
+  padding: 20px;
+  text-align: center;
+  min-height: 50vh;
+}
+
+#songList {
+  background-color: lightcyan;
+  border-radius: 10px;
+  text-align: left;
+}
+
+li {
+  padding: 15px;
+}
+
+li:hover, i:hover {
+  cursor: pointer;
+}
+
+#controls {
+  border: 1px solid lightgray;
+  border-radius: 10px;
+  background-color: lightcyan;
+  padding: 1.5em;
+}
+
+i {
+  color: lightslategray;
+}
+.fa-play-circle, .fa-pause-circle {
+  font-size: 4rem;
+}
+
+.fa-volume-down, .fa-volume-up {
+  font-size: .7rem;
+
+
+progress {
+  width: 80%;
+  margin: 10px;
+}
+  </style>
+  
+  <script>
+    const songs = [
+  "bensound-birthofahero.mp3",
+  "bensound-countryboy.mp3",
+  "bensound-epic.mp3",
+  "bensound-onceagain.mp3"
+]
+
+const createSongList = () => {
+  const list = document.createElement('ol')
+
+  for(let i = 0; i < songs.length; i++) {
+    const item = document.createElement('li')
+    item.appendChild(document.createTextNode(songs[i]))
+
+    list.appendChild(item)
+  }
+  return list
+}
+
+document.getElementById('songList').appendChild(createSongList())
+
+songList.onclick = (e) => {
+  const clickedItem = e.target
+  const source = document.getElementById('source')
+  source.src = 'music/' + clickedItem.innerText //on HTML the source tag has an src. We are attaching the path for the songs
+                          //the "innterText" means the name of the file (check??)
+
+  document.getElementById('currentlyPlayingSong').innerText = "Currently Playing:"  //potevamo mettere la stringa in HTML, ma in quel modo sarebbe
+                                                      // sempre stata visibile anche quando non c'era nessuna canzone. In questo modo, appare solo
+                                                     //quando viene cliccato una canzone nella lista
+  document.getElementById('currentSong').innerText = clickedItem.innerText //when we click on a songs its title will appear
+                                                    //where we put the id currentSong on the html file
+
+  player.load() // this will load the selected audio into the players
+  player.play() // will play the song as soon as we click on one
+
+}
+
+const playAudio = () => {
+  if(player.readyState) { // it returns TRUE if the file is fully loaded.
+    player.play()  // meaning...if it's true, play the player
+  }
+}
+
+const pauseAudio = () => {
+  player.pause()
+}
+
+const slider = document.getElementById('volumeSlider')
+slider.oninput = (e) => {
+const volume = e.target.value
+player.volume = volume // il volume del player e' uguale al valore della costante chiamata "volume"
+                        // appena creata una riga piu' su
+}
+
+const updateProgress = () => {
+  if(player.currentTime > 0) { // without this IF, we have an error since it can't calculate the progressBar.value if it
+                              //doesn't know the duration of the song. Like this, it will start doing the math only once the song has started.
+  const progressBar = document.getElementById('progress')
+  progressBar.value = (player.currentTime / player.duration) * 100  // so we can have a %
+}
+}
+  </script>
+  
+  
+  
+  
   <body>
-  
-  
-  
-  
+<audio id="player" ontimeupdate="updateProgress()">  <!-- ONTIMEUPDATE is an event that runs when the position of the audio is changing, like when a song it's playing. And here runs a function -->
+    <source id="source">
+      Audio not supported
+</audio>
+
+<span id="currentlyPlayingSong"></span><em><span id="currentSong"></span></em>
+
+<progress id="progress" value="0" max="100"> </progress> <!-- the value means the starting value  -->
+
+<div id="controls">
+  <i class="fas fa-play-circle" onclick='playAudio()'></i>
+  <i class="fas fa-pause-circle" onclick="pauseAudio()"></i>
+  <p>Volume:</p>
+  <i class="fas fa-volume-down"></i>
+  <input type="range" id="volumeSlider" min="0" max="1" step="0.01">
+  <i class="fas fa-volume-up"></i>
+</div>
+
+<h4>Playlist Songs:</h4>
+<div id="songList"></div>
+
+
+<p>Music: <a href="https://www.bensound.com/">https://www.bensound.com</a></p>
+<script src="script.js">
+
+</script>
+
   </body>
-  </html>
+</html>
